@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Rishi ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+  color:#fff;
+  height:100vh;
+  overflow:hidden;
+}
+
+section{
+  position:absolute;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+}
+
+section.active{
+  display:flex;
+  animation:fadeSlide 1s ease;
+}
+
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.wrap{
+  max-width:900px;
+}
+
+h1{
+  font-size:2.6rem;
+  margin-bottom:15px;
+}
+
+p{
+  font-size:1.15rem;
+  line-height:1.8;
+  opacity:0.9;
+  margin-bottom:18px;
+}
+
+.btn{
+  margin-top:25px;
+  padding:14px 34px;
+  font-size:1.05rem;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff5fa2,#ff2f85);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(255,95,162,.4);
+  transition:.3s;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(255,95,162,.7);
+}
+
+.countdown{
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.box{
+  background:rgba(255,255,255,.12);
+  padding:18px;
+  border-radius:16px;
+  min-width:80px;
+  backdrop-filter:blur(10px);
+}
+
+.num{
+  font-size:2rem;
+  font-weight:700;
+}
+
+.label{
+  font-size:.75rem;
+  opacity:.7;
+}
+
+.big-love{
+  font-size:3rem;
+  font-weight:800;
+  line-height:1.2;
+}
+
+@media(max-width:768px){
+  h1{font-size:2rem}
+  .big-love{font-size:2.2rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ACT 1 -->
+<section id="act1" class="active">
+  <div class="wrap">
+    <h1>Hey Rishi ❤️</h1>
+    <p>Before this year begins… I made something just for you.</p>
+
+    <div class="countdown">
+      <div class="box"><div class="num" id="d">00</div><div class="label">Days</div></div>
+      <div class="box"><div class="num" id="h">00</div><div class="label">Hours</div></div>
+      <div class="box"><div class="num" id="m">00</div><div class="label">Minutes</div></div>
+      <div class="box"><div class="num" id="s">00</div><div class="label">Seconds</div></div>
+    </div>
+
+    <button class="btn" onclick="go(2)">Continue ❤️</button>
+  </div>
+</section>
+
+<!-- ACT 2 -->
+<section id="act2">
+  <div class="wrap">
+    <h1>One more thing… 💌</h1>
+    <p>This is from my heart.</p>
+    <button class="btn" onclick="go(3)">Continue ❤️</button>
+  </div>
+</section>
+
+<!-- ACT 3 -->
+<section id="act3">
+  <div class="wrap">
+    <h1>From my heart to yours</h1>
+    <p>
+      Somewhere along the way, you became my calm, my comfort,
+      and my favourite part of every day.
+    </p>
+    <button class="btn" onclick="go(4)">Continue ❤️</button>
+  </div>
+</section>
+
+<!-- ACT 4 -->
+<section id="act4">
+  <div class="wrap">
+    <div class="big-love">
+      I love you.<br>
+      Every year.<br>
+      Forever.
+    </div>
+    <button class="btn" onclick="go(5)">Continue ❤️</button>
+  </div>
+</section>
+
+<!-- ACT 5 -->
+<section id="act5">
+  <div class="wrap">
+    <h1>🎆 Happy New Year Rishi ❤️</h1>
+    <p>Here’s to us, and all the years ahead.</p>
+  </div>
+</section>
+
+<script>
+const DEV_MODE = true; // set false on New Year
+
+const acts=[...document.querySelectorAll('section')];
+
+function go(n){
+  acts.forEach(a=>a.classList.remove('active'));
+  document.getElementById('act'+n).classList.add('active');
+}
+
+// countdown logic (still runs)
+const target=new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
+const d=document.getElementById('d'),
+      h=document.getElementById('h'),
+      m=document.getElementById('m'),
+      s=document.getElementById('s');
+
+if(!DEV_MODE){
+setInterval(()=>{
+  const diff=target-Date.now();
+  if(diff<=0) return;
+  d.textContent=Math.floor(diff/86400000);
+  h.textContent=Math.floor(diff/3600000%24);
+  m.textContent=Math.floor(diff/60000%60);
+  s.textContent=Math.floor(diff/1000%60);
+},1000);
+}
+</script>
+
+</body>
+</html>
