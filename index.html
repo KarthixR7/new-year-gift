@@ -105,14 +105,39 @@ p{
   line-height:1.2;
 }
 
+.memory{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  margin-top:25px;
+}
+
+.memory img{
+  width:100%;
+  border-radius:16px;
+}
+
+video{
+  width:90%;
+  max-width:800px;
+  border-radius:18px;
+  box-shadow:0 0 30px rgba(255,255,255,.25);
+}
+
 @media(max-width:768px){
   h1{font-size:2rem}
   .big-love{font-size:2.2rem}
+  .memory{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <!-- ACT 1 -->
 <section id="act1" class="active">
@@ -127,20 +152,25 @@ p{
       <div class="box"><div class="num" id="s">00</div><div class="label">Seconds</div></div>
     </div>
 
-    <button class="btn" onclick="go(2)">Continue ❤️</button>
+    <button class="btn" onclick="startMusic(); go(2)">Continue ❤️</button>
   </div>
 </section>
 
-<!-- ACT 2 -->
+<!-- ACT 2 : VIDEO -->
 <section id="act2">
   <div class="wrap">
-    <h1>One more thing… 💌</h1>
-    <p>This is from my heart.</p>
+    <h1>Before the year begins…</h1>
+    <p>I wanted you to hear this from me.</p>
+
+    <video id="loveVideo" controls>
+  <source src="video.mp4" type="video/mp4">
+</video>
+
     <button class="btn" onclick="go(3)">Continue ❤️</button>
   </div>
 </section>
 
-<!-- ACT 3 -->
+<!-- ACT 3 : LETTER + PHOTOS -->
 <section id="act3">
   <div class="wrap">
     <h1>From my heart to yours</h1>
@@ -148,6 +178,15 @@ p{
       Somewhere along the way, you became my calm, my comfort,
       and my favourite part of every day.
     </p>
+
+    <div class="memory">
+      <img src="photos/pic1.jpg" alt="">
+      <p>
+        Every memory with you feels safe, warm,
+        and exactly where I belong.
+      </p>
+    </div>
+
     <button class="btn" onclick="go(4)">Continue ❤️</button>
   </div>
 </section>
@@ -176,13 +215,33 @@ p{
 const DEV_MODE = true; // set false on New Year
 
 const acts=[...document.querySelectorAll('section')];
-
 function go(n){
   acts.forEach(a=>a.classList.remove('active'));
   document.getElementById('act'+n).classList.add('active');
 }
 
-// countdown logic (still runs)
+// music
+const bgm=document.getElementById("bgm");
+function startMusic(){
+  if(bgm.paused){
+    bgm.volume=0.08;
+    bgm.play().catch(()=>{});
+  }
+}
+const video = document.getElementById("loveVideo");
+
+// Pause music when video starts
+video.addEventListener("play", () => {
+  if (!bgm.paused) bgm.pause();
+});
+
+// Resume music very softly after video ends
+video.addEventListener("ended", () => {
+  bgm.volume = 0.06;
+  bgm.play().catch(()=>{});
+});
+
+// countdown
 const target=new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
 const d=document.getElementById('d'),
       h=document.getElementById('h'),
