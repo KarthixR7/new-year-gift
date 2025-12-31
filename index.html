@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="style.css">
+
 <meta charset="UTF-8">
 <title>For Rishi ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +44,8 @@ section.active{
 
 .wrap{
   max-width:900px;
+  position:relative;
+  z-index:2;
 }
 
 h1{
@@ -124,6 +128,15 @@ video{
   box-shadow:0 0 30px rgba(255,255,255,.25);
 }
 
+/* 🔥 FIREWORKS CANVAS */
+#fireworks{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+}
+
 @media(max-width:768px){
   h1{font-size:2rem}
   .big-love{font-size:2.2rem}
@@ -152,44 +165,100 @@ video{
       <div class="box"><div class="num" id="s">00</div><div class="label">Seconds</div></div>
     </div>
 
-    <button class="btn" onclick="startMusic(); go(2)">Continue ❤️</button>
+    <button class="btn" id="unlockBtn" disabled>
+  Unlocks at New Year 💫
+</button>
+
   </div>
 </section>
 
-<!-- ACT 2 : VIDEO -->
+<!-- ACT 2 -->
 <section id="act2">
   <div class="wrap">
     <h1>Before the year begins…</h1>
     <p>I wanted you to hear this from me.</p>
 
     <video id="loveVideo" controls>
-  <source src="video.mp4" type="video/mp4">
-</video>
+      <source src="video.mp4" type="video/mp4">
+    </video>
 
     <button class="btn" onclick="go(3)">Continue ❤️</button>
   </div>
 </section>
 
-<!-- ACT 3 : LETTER + PHOTOS -->
+<!-- ACT 3 -->
 <section id="act3">
   <div class="wrap">
-    <h1>From my heart to yours</h1>
-    <p>
-      Somewhere along the way, you became my calm, my comfort,
-      and my favourite part of every day.
-    </p>
 
-    <div class="memory">
-      <img src="photos/pic1.jpg" alt="">
+    <div class="letter-paper">
+      <h2>Rishi….</h2>
+
+      <p>Love youuuu 😘😘😘</p>
+
       <p>
-        Every memory with you feels safe, warm,
-        and exactly where I belong.
+        First lo ninnu chusinappude anukunna,
+        mana iddari madhyalo edho bonding undhi ani… (Love you)
+        Adhi manam trip ki vellaka inka clear ga ardham ayyindhi.
+      </p>
+
+      <p>
+        Aa trip lo ney nenu ninnu first time proper ga chusanu.
+        Naaku inka gurthu —
+        aa train lo nuvvu ni bag paina pettukuni
+        nannu chusina aa choopu…
+        adhi na heart lo ippatiki undhi.
+      </p>
+
+      <!-- photos inside letter -->
+      <div class="letter-photos">
+        <img src="photos/pic1.jpg" alt="">
+        <img src="photos/pic2.jpg" alt="">
+      </div>
+
+      <p>
+        Tarvatha manam ala ala close ayyam.
+        Trip ayipoyaka,
+        nuvvu naaku propose chesav.
+      </p>
+
+      <p>
+        Nen first lo “no” cheppanu…
+        ayina nuvvu aagadhu 😅
+        Gola gola chesav.
+        “Naaku nuvve kavali,
+        inka evaru oddu” ani.
+      </p>
+
+      <p>
+        Nijam cheppalante,
+        nen em cheyyaleka oppeskunna 😮‍💨
+      </p>
+
+      <p>
+        Sare… ippudu topic loki osthey,
+        manam relation lo undhi August 14 nunchi.
+        5 and half months aa!
+        Time chaala fast ga aipothundhi Rishi… (Love you)
+      </p>
+
+      <p>
+        Ee New Year nunchi
+        manam inka close ga,
+        inka happy ga undali.
+        Anthey.
+      </p>
+
+      <p>
+        <strong>Happy New Year Rishi 💓💞💗</strong><br>
+        Love you. Always.
       </p>
     </div>
 
     <button class="btn" onclick="go(4)">Continue ❤️</button>
+
   </div>
 </section>
+
 
 <!-- ACT 4 -->
 <section id="act4">
@@ -205,59 +274,176 @@ video{
 
 <!-- ACT 5 -->
 <section id="act5">
+  <canvas id="fireworks"></canvas>
+
+  <!-- polaroid background -->
+  <div class="polaroid-bg">
+    <img src="photos/p1.jpg" class="polaroid1" alt="">
+    <img src="photos/p2.jpg" class="polaroid2" alt="">
+    <img src="photos/p3.jpg" class="polaroid3" alt="">
+    <img src="photos/p4.jpg" class="polaroid4" alt="">
+    <img src="photos/p5.jpg" class="polaroid5" alt="">
+    <img src="photos/p6.jpg" class="polaroid6" alt="">
+    <img src="photos/p7.jpg" class="polaroid7" alt="">
+  </div>
+
   <div class="wrap">
-    <h1>🎆 Happy New Year Rishi ❤️</h1>
-    <p>Here’s to us, and all the years ahead.</p>
+    <h1>🎆 Happy New Year 🎆</h1>
+    <p style="font-size:1.4rem;">Rishi ❤️ Karthik</p>
   </div>
 </section>
 
-<script>
-const DEV_MODE = true; // set false on New Year
 
+<script>
+/* ---------- ACT NAV ---------- */
 const acts=[...document.querySelectorAll('section')];
 function go(n){
   acts.forEach(a=>a.classList.remove('active'));
   document.getElementById('act'+n).classList.add('active');
+  if(n === 5) startFireworks();
 }
 
-// music
+/* ---------- MUSIC ---------- */
 const bgm=document.getElementById("bgm");
 function startMusic(){
   if(bgm.paused){
-    bgm.volume=0.08;
+    bgm.volume=0.06;
     bgm.play().catch(()=>{});
   }
 }
-const video = document.getElementById("loveVideo");
 
-// Pause music when video starts
-video.addEventListener("play", () => {
-  if (!bgm.paused) bgm.pause();
-});
-
-// Resume music very softly after video ends
-video.addEventListener("ended", () => {
-  bgm.volume = 0.06;
+const video=document.getElementById("loveVideo");
+video.addEventListener("play",()=>{ if(!bgm.paused) bgm.pause(); });
+video.addEventListener("ended",()=>{
+  bgm.volume=0.04;
   bgm.play().catch(()=>{});
 });
 
-// countdown
-const target=new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
-const d=document.getElementById('d'),
-      h=document.getElementById('h'),
-      m=document.getElementById('m'),
-      s=document.getElementById('s');
+/* ---------- FIREWORKS ---------- */
+let canvas,ctx,particles=[],running=false;
 
-if(!DEV_MODE){
-setInterval(()=>{
-  const diff=target-Date.now();
-  if(diff<=0) return;
-  d.textContent=Math.floor(diff/86400000);
-  h.textContent=Math.floor(diff/3600000%24);
-  m.textContent=Math.floor(diff/60000%60);
-  s.textContent=Math.floor(diff/1000%60);
-},1000);
+function startFireworks(){
+  if(running) return;
+  running=true;
+
+  canvas=document.getElementById("fireworks");
+  ctx=canvas.getContext("2d");
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  setInterval(()=>burst(Math.random()*canvas.width,Math.random()*canvas.height*0.6),700);
+  setInterval(()=>heart(canvas.width/2,canvas.height/2.6),3500);
+
+  animate();
 }
+
+function resizeCanvas(){
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+}
+
+function burst(x,y){
+  for(let i=0;i<60;i++){
+    const a=Math.random()*Math.PI*2;
+    particles.push({
+      x,y,
+      vx:Math.cos(a)*3,
+      vy:Math.sin(a)*3,
+      life:80,
+      heart:false
+    });
+  }
+}
+
+function heart(x,y){
+  for(let t=0;t<Math.PI*2;t+=0.15){
+    const hx=16*Math.pow(Math.sin(t),3);
+    const hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    particles.push({
+      x,y,
+      vx:hx*0.12,
+      vy:hy*0.12,
+      life:120,
+      heart:true
+    });
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    p.vy+=0.02;
+    p.life--;
+
+    ctx.fillStyle=p.heart
+      ? `rgba(255,80,130,${p.life/120})`
+      : `rgba(255,200,220,${p.life/80})`;
+
+    ctx.fillRect(p.x,p.y,2,2);
+
+    if(p.life<=0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+/* 🎉 NEW YEAR COUNTDOWN (IST) */
+const targetDate = new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
+
+const daysEl = document.getElementById("d");
+const hoursEl = document.getElementById("h");
+const minsEl = document.getElementById("m");
+const secsEl = document.getElementById("s");
+
+function updateCountdown(){
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  if(diff <= 0){
+    daysEl.textContent = "00";
+    hoursEl.textContent = "00";
+    minsEl.textContent = "00";
+    secsEl.textContent = "00";
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  daysEl.textContent = String(days).padStart(2,"0");
+  hoursEl.textContent = String(hours).padStart(2,"0");
+  minsEl.textContent = String(minutes).padStart(2,"0");
+  secsEl.textContent = String(seconds).padStart(2,"0");
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* 🔒 LOCK UNTIL NEW YEAR */
+const unlockBtn = document.getElementById("unlockBtn");
+const targetUnlock = new Date("January 1, 2026 00:00:00 GMT+0530").getTime();
+
+function checkUnlock(){
+  const now = new Date().getTime();
+
+  if(now >= targetUnlock){
+    unlockBtn.disabled = false;
+    unlockBtn.textContent = "Continue ❤️";
+    unlockBtn.onclick = () => {
+      startMusic();
+      go(2);
+    };
+  } else {
+    unlockBtn.disabled = true;
+  }
+}
+
+// check every second
+setInterval(checkUnlock, 1000);
+checkUnlock();
+
 </script>
 
 </body>
