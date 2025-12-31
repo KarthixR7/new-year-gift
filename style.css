@@ -1,0 +1,115 @@
+/* 💌 LETTER PAPER STYLE */
+.letter-paper{
+  background: linear-gradient(135deg,#f6e7c9,#ecd3a8);
+  color:#3b2a1a;
+  padding:40px 35px;
+  border-radius:16px;
+  max-width:760px;
+  margin:0 auto;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.25),
+    inset 0 0 25px rgba(255,255,255,0.3);
+  position:relative;
+}
+
+/* decorative border */
+.letter-paper::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:2px solid rgba(60,40,20,0.35);
+  border-radius:12px;
+  pointer-events:none;
+}
+
+.letter-paper p{
+  font-size:1.05rem;
+  line-height:1.9;
+  margin-bottom:18px;
+}
+
+.letter-paper h2{
+  font-size:1.9rem;
+  margin-bottom:22px;
+  color:#2a1a0f;
+}
+
+/* photos inside letter */
+.letter-photos{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:25px 0;
+}
+
+.letter-photos img{
+  width:100%;
+  border-radius:12px;
+  border:4px solid #f9f1df;
+  box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+
+@media(max-width:768px){
+  .letter-photos{
+    grid-template-columns:1fr;
+  }
+}
+/* ✅ Allow scrolling ONLY for the letter act */
+#act3{
+  overflow-y: auto;
+}
+
+/* improve spacing so paper is centered */
+#act3 .wrap{
+  padding-bottom: 60px;
+}
+/* 📜 ACT 3 should start from top, not center */
+#act3{
+  align-items: flex-start;
+  padding-top: 40px;
+}
+.letter-photos img{
+  transform: rotate(-1.5deg);
+}
+
+.letter-photos img:nth-child(2){
+  transform: rotate(1.5deg);
+}
+.letter-photos{
+  grid-template-columns: repeat(2, 130px);
+  justify-content: center;
+}
+/* 🎞️ POLAROID BACKGROUND FOR ACT 5 */
+.polaroid-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+.polaroid-bg img{
+  position:absolute;
+  width:140px;
+  padding:10px 10px 18px;
+  background:#fff;
+  box-shadow:0 10px 25px rgba(0,0,0,0.35);
+  border-radius:4px;
+  opacity:0.25;
+  transform-origin: center top;
+}
+
+/* individual placements */
+.polaroid1{ top:8%; left:6%; transform:rotate(-8deg); }
+.polaroid2{ top:18%; right:8%; transform:rotate(6deg); }
+.polaroid3{ top:42%; left:10%; transform:rotate(4deg); }
+.polaroid4{ top:55%; right:12%; transform:rotate(-6deg); }
+.polaroid5{ bottom:12%; left:22%; transform:rotate(-7deg); }
+.polaroid6{ bottom:18%; right:25%; transform:rotate(-5deg); }
+.polaroid7{ top:30%; left:42%; transform:rotate(2deg); }
+
+/* mobile adjust */
+@media(max-width:768px){
+  .polaroid-bg img{
+    width:100px;
+  }
+}
